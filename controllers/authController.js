@@ -57,13 +57,35 @@ export const loginUser = async (req, res) => {
     res.cookie("token", token, {
       httpOnly: true,
       secure: false, // true in production
-      sameSite: "strict"
+      sameSite: "lax"
     });
 
     res.json({
-      message: "Login successful"
+      message: "Login successful",
+      user: {
+        id: user._id,
+        name: user.name,
+        email: user.email
+      },
+      token: token
     });
 
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+export const logoutUser = async (req, res) => {
+  try {
+    res.clearCookie("token", {
+      httpOnly: true,
+      secure: false,
+      sameSite: "lax"
+    });
+    
+    res.json({
+      message: "Logout successful"
+    });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
