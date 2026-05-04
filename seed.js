@@ -8,11 +8,11 @@ dotenv.config();
 const seedCryptos = async () => {
   try {
     await connectDB();
-    console.log("✅ Database connected");
+    console.log("Database connected");
 
     // Clear existing cryptos
     const deleteResult = await Crypto.deleteMany({});
-    console.log(`🗑️  Deleted ${deleteResult.deletedCount} existing cryptos`);
+    console.log(`Deleted ${deleteResult.deletedCount} existing cryptos`);
 
     const cryptos = [
       {
@@ -74,11 +74,11 @@ const seedCryptos = async () => {
     ];
 
     const result = await Crypto.insertMany(cryptos);
-    console.log(`✅ ${result.length} cryptocurrencies seeded successfully!`);
-    console.log("📊 Seeded cryptos:", result.map(c => c.name));
+    console.log(`${result.length} cryptocurrencies seeded successfully!`);
+    console.log("Seeded cryptos:", result.map(c => c.name));
     process.exit(0);
   } catch (error) {
-    console.error("❌ Error seeding cryptos:", error.message);
+    console.error("Error seeding cryptos:", error.message);
     process.exit(1);
   }
 };

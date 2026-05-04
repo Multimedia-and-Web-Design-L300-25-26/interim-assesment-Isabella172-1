@@ -10,8 +10,7 @@ import userRoutes from "./routes/userRoutes.js";
 import cryptoRoutes from "./routes/cryptoRoutes.js";
 import Crypto from "./models/Crypto.js";
 
-
-dotenv.config();
+import "dotenv/config";
 
 const app = express();
 
@@ -97,7 +96,7 @@ const seedDatabase = async () => {
         }
       ];
       await Crypto.insertMany(cryptos);
-      console.log("✅ Database seeded with 8 cryptocurrencies!");
+      console.log("Database seeded with 8 cryptocurrencies!");
     }
   } catch (error) {
     console.error("Error seeding database:", error.message);
