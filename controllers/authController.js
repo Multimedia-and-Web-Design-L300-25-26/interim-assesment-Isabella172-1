@@ -27,7 +27,7 @@ export const registerUser = async (req, res) => {
 };
 
 
-// LOGIN USER
+// LOGIN
 export const loginUser = async (req, res) => {
   try {
     const { email, password } = req.body;
@@ -42,30 +42,31 @@ export const loginUser = async (req, res) => {
       return res.status(400).json({ message: "Invalid credentials" });
     }
 
-    // Generate JWT
+    // JWT
     const token = jwt.sign(
       { id: user._id },
       process.env.JWT_SECRET,
       { expiresIn: "1d" }
     );
 
-    // FIXED COOKIE CONFIG (works locally + production)
     const isProduction = process.env.NODE_ENV === "production";
 
     res.cookie("token", token, {
       httpOnly: true,
-      secure: isProduction,                 // true on Render (HTTPS)
+      secure: isProduction,               
       sameSite: isProduction ? "none" : "lax"
     });
 
     res.status(200).json({
-      message: "Login successful",
-      user: {
-        id: user._id,
-        name: user.name,
-        email: user.email
-      }
-    });
+  message: "Login successful",
+  token: token,
+  user: {
+    id: user._id,
+    name: user.name,
+    email: user.email
+  }
+});
+    
 
   } catch (error) {
     res.status(500).json({ message: error.message });

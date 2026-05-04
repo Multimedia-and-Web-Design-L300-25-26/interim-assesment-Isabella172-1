@@ -45,7 +45,7 @@ app.get("/", (req, res) => {
   res.send("API running...");
 });
 
-// Seed database if empty
+// Seed database
 const seedDatabase = async () => {
   try {
     const count = await Crypto.countDocuments();
@@ -117,7 +117,7 @@ const seedDatabase = async () => {
   }
 };
 
-// Connect DB (optional) and start server
+
 const startServer = async () => {
   await seedDatabase();
   app.listen(5000, () => console.log("Server running on port 5000"));
