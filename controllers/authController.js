@@ -49,7 +49,7 @@ export const loginUser = async (req, res) => {
       { expiresIn: "1d" }
     );
 
-    // ✅ FIXED COOKIE CONFIG (works locally + production)
+    // FIXED COOKIE CONFIG (works locally + production)
     const isProduction = process.env.NODE_ENV === "production";
 
     res.cookie("token", token, {
